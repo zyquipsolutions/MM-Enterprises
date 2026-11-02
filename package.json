@@ -1,0 +1,26 @@
+{
+  "name": "mm-enterprises-website",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Static website for MM Enterprises, Chennai",
+  "scripts": {
+    "build": "node --env-file-if-exists=.env build.mjs",
+    "serve": "node serve.mjs",
+    "dev": "node --env-file-if-exists=.env build.mjs && node serve.mjs",
+    "dev:worker": "node --env-file-if-exists=.env build.mjs && wrangler d1 migrations apply mm-reviews --local && wrangler dev",
+    "test": "node verify.mjs",
+    "db:migrate": "wrangler d1 migrations apply mm-reviews --remote",
+    "deploy": "node --env-file-if-exists=.env build.mjs && node verify.mjs && wrangler deploy"
+  },
+  "dependencies": {
+    "sharp": "^0.34.5"
+  },
+  "engines": {
+    "node": ">=22.9"
+  },
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "wrangler": "^4.156.2"
+  }
+}

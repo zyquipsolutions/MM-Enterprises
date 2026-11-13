@@ -32,6 +32,8 @@ const wa = (msg = SITE.whatsappGreeting) => `https://wa.me/${SITE.whatsappDigits
 const tel = `tel:+91${SITE.phoneLocal}`;
 const mail = `mailto:${SITE.email}`;
 const ext = 'target="_blank" rel="noopener"';
+const mapsExt = 'target="_blank" rel="noopener noreferrer"';
+const addressHtml = SITE.addressLines.map(esc).join('<br>');
 const hash = (s) => crypto.createHash('md5').update(s).digest('hex').slice(0, 8);
 const year = new Date().getFullYear();
 const YEARS = SITE.experienceYears;
@@ -88,8 +90,11 @@ async function processLogo() {
   }
   const m = await sharp(src).metadata();
   const widths = [96, 192, 320, 640];
-  for (const w of widths) await sharp(src).resize({ width: w }).webp({ quality: 90 }).toFile(path.join(DIST, 'img', `mm-enterprises-logo-${w}.webp`));
-  Object.assign(LOGO, { src: '/img/mm-enterprises-logo-192.webp', srcset: widths.map((w) => `/img/mm-enterprises-logo-${w}.webp ${w}w`).join(', '), w: m.width, h: m.height });
+  // short content hash in the name: /img/ is cached as immutable, so a new logo must get new file names
+  const v = crypto.createHash('md5').update(fs.readFileSync(src)).digest('hex').slice(0, 8);
+  const name = (w) => `mm-enterprises-logo-${v}-${w}.webp`;
+  for (const w of widths) await sharp(src).resize({ width: w }).webp({ quality: 90 }).toFile(path.join(DIST, 'img', name(w)));
+  Object.assign(LOGO, { src: `/img/${name(192)}`, srcset: widths.map((w) => `/img/${name(w)} ${w}w`).join(', '), w: m.width, h: m.height });
   for (const [file, size] of [['favicon-32.png', 32], ['favicon-64.png', 64], ['apple-touch-icon.png', 180], ['icon-192.png', 192], ['icon-512.png', 512]]) {
     await sharp(src).resize(size, size).png().toFile(path.join(DIST, file));
   }
@@ -226,7 +231,7 @@ function footer() {
       <li>${icon('phone', 'ic', 18)}<a href="${tel}">${esc(SITE.phone)}</a></li>
       <li>${icon('whatsapp', 'ic', 18)}<a href="${wa()}" ${ext}>WhatsApp ${esc(SITE.whatsapp)}</a></li>
       <li>${icon('mail', 'ic', 18)}<a href="${mail}">${esc(SITE.email)}</a></li>
-      <li>${icon('pin', 'ic', 18)}<a href="${SITE.googleMapsLink}" ${ext}>${esc(SITE.city)}, ${esc(SITE.region)}: open in Google Maps</a></li>
+      <li>${icon('pin', 'ic', 18)}<span>${addressHtml}<br><a href="${SITE.googleMapsLink}" ${mapsExt}>View on Google Maps</a></span></li>
     </ul></div>
   </div>
   <div class="foot-base"><div class="wrap foot-base-in">
@@ -235,6 +240,7 @@ function footer() {
   </div></div>
 </footer>
 <div class="fab" aria-label="Quick contact">
+  <a class="fab-btn fab-call" href="tel:+919840871541" aria-label="Call us">${icon('phone', 'ic', 24)}</a>
   <a class="fab-btn fab-mail" href="${mail}" aria-label="Email MM Enterprises">${icon('mail', 'ic', 24)}</a>
   <a class="fab-btn fab-wa" href="${wa()}" ${ext} aria-label="Chat with MM Enterprises on WhatsApp">${icon('whatsapp', 'ic', 30)}</a>
 </div>`;
@@ -664,7 +670,7 @@ ${pageHero({ label: 'Contact', title: 'Contact MM Enterprises', lede: 'Call, Wha
       <li><span class="c-ic">${icon('phone', 'ic', 22)}</span><div><h2>Phone</h2><a href="${tel}">${esc(SITE.phone)}</a></div></li>
       <li><span class="c-ic is-wa">${icon('whatsapp', 'ic', 22)}</span><div><h2>WhatsApp</h2><a href="${wa()}" ${ext}>${esc(SITE.whatsapp)}</a></div></li>
       <li><span class="c-ic">${icon('mail', 'ic', 22)}</span><div><h2>Email</h2><a href="${mail}">${esc(SITE.email)}</a></div></li>
-      <li><span class="c-ic">${icon('pin', 'ic', 22)}</span><div><h2>Location</h2><p>${esc(SITE.city)}, ${esc(SITE.region)}</p><a href="${SITE.googleMapsLink}" ${ext}>Open in Google Maps ${icon('external', 'ic', 16)}</a></div></li>
+      <li><span class="c-ic">${icon('pin', 'ic', 22)}</span><div><h2>Location</h2><p>${addressHtml}</p><a href="${SITE.googleMapsLink}" ${mapsExt}>View on Google Maps ${icon('external', 'ic', 16)}</a></div></li>
     </ul>
   </div>
   <div class="form-card" id="enquiry">

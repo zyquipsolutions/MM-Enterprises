@@ -24,11 +24,12 @@ export const SITE = {
   whatsappDigits: '919750656371',                      // wa.me links (international format, digits only)
   whatsappGreeting: 'Hello MM Enterprises, I would like help with my kitchen appliance.',
   email: 'mmenterprses2@gmail.com',                    // confirmed by the owner; spelling is intentional
+  addressLines: ['1st floor, No: 16B,', '2nd Bungalow St,', 'Ambal Nagar,', 'Ekkatuthangal,', 'Chennai - 600032'], // shown on the site exactly as written
   googleMapsLink: 'https://www.google.com/maps/place/MM+ENTERPRISES/@13.0074533,80.2103125,17z/data=!3m1!4b1!4m6!3m5!1s0x3a5267bbf8d74cef:0xaa583950007650bf!8m2!3d13.0074481!4d80.2128874!16s%2Fg%2F11h07whg05',
   // Web3Forms access key: set WEB3FORMS_ACCESS_KEY in .env (see .env.example). Never commit a real key here.
   web3formsKey: (process.env.WEB3FORMS_ACCESS_KEY || '').trim(),
   themeColor: '#071D33',
-  logoFile: 'logo.jpeg',                               // photos/logo.jpeg, used unedited
+  logoFile: 'new_logo.jpeg',                           // photos/new_logo.jpeg, used unedited
 };
 
 export const SERVICE_TYPES = ['Installation', 'Repair', 'Maintenance'];
@@ -122,8 +123,12 @@ export const BRANDS = [
   { name: 'LG', logo: 'lg.svg' },
   { name: 'Siemens', logo: 'siemens.svg' },
   { name: 'Whirlpool', logo: 'whirlpool.svg' },
+  // Drop the logo files into assets/brands/ with these exact names; until then the card shows the brand name.
+  { name: 'Faber', logo: 'faber.png' },
+  { name: 'Kaff', logo: 'kaff.png' },
+  { name: 'Glen', logo: 'glen.png' },
 ];
-export const BRANDS_NOTE = 'Authorised service partner for Elica. We also service Butterfly, Bosch, LG, Siemens and Whirlpool appliances.';
+export const BRANDS_NOTE = 'Authorised service partner for Elica. We also service Butterfly, Bosch, LG, Siemens, Whirlpool, Faber, Kaff and Glen appliances.';
 
 export const WHY = [
   { title: 'Experienced technicians', icon: 'expert', text: `${14} years of hands-on work with kitchen appliances in Chennai homes.` },

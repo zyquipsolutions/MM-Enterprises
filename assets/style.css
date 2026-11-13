@@ -255,6 +255,7 @@ button { font-weight: 600; }
 .brand-tile-card { position: relative; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 18px; border-radius: var(--r-lg); background: linear-gradient(160deg, rgba(18, 63, 90, .55), rgba(11, 41, 66, .35)); border: 1px solid var(--line-dark); transition: transform .35s var(--ease), border-color .35s var(--ease), box-shadow .35s var(--ease); }
 .brand-plate { display: grid; place-items: center; width: 100%; height: clamp(96px, 12vw, 120px); padding: 18px 22px; border-radius: var(--r-md); background: var(--white); transition: transform .4s var(--ease); }
 .brand-plate img { max-height: clamp(30px, 4vw, 46px); max-width: 78%; width: auto; height: auto; object-fit: contain; }
+.brand-plate img[src$="/glen.png"] { max-height: clamp(50px, 6.5vw, 72px); } /* compact boxed logo: allow more height so it reads at the same weight as the others */
 .brand-tile-card:hover { border-color: rgba(22, 213, 223, .55); box-shadow: var(--glow); }
 .brand-tile-card:hover .brand-plate { transform: scale(1.04); }
 .brand-tile-card.is-auth { border-color: rgba(22, 213, 223, .5); box-shadow: 0 0 0 1px rgba(22, 213, 223, .25); }
@@ -735,9 +736,9 @@ html.lb-open { overflow: hidden; }
 .fab-btn:hover { transform: scale(1.1); }
 .fab-wa { width: 60px; height: 60px; background: var(--wa); color: var(--white); box-shadow: 0 8px 24px rgba(37, 211, 102, .45), 0 2px 6px rgba(0, 0, 0, .2); }
 .fab-wa:hover { color: var(--white); box-shadow: 0 12px 32px rgba(37, 211, 102, .55), 0 2px 6px rgba(0, 0, 0, .2); }
-.fab-mail { width: 50px; height: 50px; background: var(--midnight); color: var(--cyan); border: 1px solid rgba(22, 213, 223, .55); box-shadow: 0 8px 22px rgba(6, 21, 38, .35); }
-.fab-mail:hover { color: var(--cyan); background: var(--ocean); }
-@media (max-width: 599px) { .fab-wa { width: 54px; height: 54px; } .fab-mail { width: 46px; height: 46px; } }
+.fab-mail, .fab-call { width: 50px; height: 50px; background: var(--midnight); color: var(--cyan); border: 1px solid rgba(22, 213, 223, .55); box-shadow: 0 8px 22px rgba(6, 21, 38, .35); }
+.fab-mail:hover, .fab-call:hover { color: var(--cyan); background: var(--ocean); }
+@media (max-width: 599px) { .fab-wa { width: 54px; height: 54px; } .fab-mail, .fab-call { width: 46px; height: 46px; } }
 
 /* ---------- 404 ---------- */
 .nf-in { text-align: center; max-width: 640px; }
